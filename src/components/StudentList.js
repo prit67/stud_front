@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Container, Table, ButtonGroup, Button } from "react-bootstrap";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Link} from 'react-router-dom'
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 export default function StudentList() {
   const [students, setStudents] = useState([]);
@@ -23,7 +24,7 @@ export default function StudentList() {
       if (response.data !== null){
         alert("Record Deleted Successfully");
 
-        
+        setStudents(students.filter(student=>student.id!==studentId));
       }
     })
   }
@@ -58,7 +59,7 @@ export default function StudentList() {
                   <td>{student.address}</td>
                   <td>
                     <ButtonGroup>
-                      <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit}> Edit </FontAwesomeIcon></Button>{ ' '}
+                    <Link to={"/student/"+student.id}><Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit}> Edit </FontAwesomeIcon></Button></Link>{ ' '}
                       <Button size="sm" variant="outline-danger" onClick={deleteStudent.bind(this,student.id)}><FontAwesomeIcon icon={faTrash}> Delete </FontAwesomeIcon></Button>
                       {/* <Button size="sm" variant="outline-danger" onClick={()=>deleteStudent(student.id)}><FontAwesomeIcon icon={faTrash}> Delete </FontAwesomeIcon></Button> */}
                     </ButtonGroup>
